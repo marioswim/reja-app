@@ -61,7 +61,7 @@ public class Detalles extends ActionBarActivity {
         }
 
         puntuar.setEnabled(false);
-        new DetallesRequest().execute(idItem, "33346");
+        new DetallesRequest().execute(idItem, idUser);//--------------------------------------------------
 
         llamar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +92,7 @@ public class Detalles extends ActionBarActivity {
 
                 double rat=rating.getRating();
                 View root= findViewById(R.id.detalles);
-                new Puntuar(root.getContext()).execute(idItem,"33346",Double.toString(rat));
+                new Puntuar(root.getContext()).execute(idItem,idUser,Double.toString(rat));
             }
         });
 

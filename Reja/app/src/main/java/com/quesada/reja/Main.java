@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class Main extends ActionBarActivity{
 
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -24,6 +25,7 @@ public class Main extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         Button recomendacion= (Button) findViewById(R.id.recomendacion);

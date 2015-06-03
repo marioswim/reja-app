@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class Login extends ActionBarActivity {
 
+    public static String iduser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,7 @@ public class Login extends ActionBarActivity {
                 startActivity(new Intent(Login.this, Main.class));
             }
         });
+        iduser="33346";
     }
 
 

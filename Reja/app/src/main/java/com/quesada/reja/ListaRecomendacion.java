@@ -48,7 +48,7 @@ public class ListaRecomendacion extends Fragment {
         lista_rec= (ListView) rootView.findViewById(R.id.recomendacion);
 
 
-        new HiloEnSegundoPlano(rootView).execute("recommendations/33368");
+        new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
 
         lista_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class ListaRecomendacion extends Fragment {
                 Bundle b=new Bundle();
                 Restaurante aux= (Restaurante) lista_rec.getAdapter().getItem(position);
                 b.putString("idItem",Integer.toString(aux.getId()));
-                b.putString("idUser","");
+                b.putString("idUser",Login.iduser);
                 b.putString("origen","Recomendación");
                 intent.putExtras(b);
                 startActivity(intent);

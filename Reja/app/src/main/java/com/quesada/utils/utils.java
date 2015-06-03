@@ -60,8 +60,8 @@ import org.json.JSONObject;
 public class utils {
 
 
-    private static String servidor = "http://sinbad2.ujaen.es/reja/rejaapi/";
-    //private static String servidor = "http://192.168.56.1:1083/rejaapi/";
+    //private static String servidor = "http://sinbad2.ujaen.es/reja/rejaapi/";
+    private static String servidor = "http://192.168.1.143:1083/reja/rejaapi/";
 
     /**
      *

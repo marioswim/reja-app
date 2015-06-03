@@ -88,7 +88,7 @@ public class ListaBusqueda extends Fragment {
                 Bundle b=new Bundle();
                 Restaurante aux= (Restaurante) list_bus.getAdapter().getItem(position);
                 b.putString("idItem",Integer.toString(aux.getId()));
-                b.putString("idUser","");
+                b.putString("idUser",Login.iduser);
                 b.putString("origen","Búsqueda");
                 intent.putExtras(b);
                 startActivity(intent);
