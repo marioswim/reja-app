@@ -72,7 +72,14 @@ tools:context=".MainActivity">
             android:id="@+id/busqueda"
 
             />
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="121dp"
+            android:text="Grupos"
+            android:id="@+id/grupos"
+            android:layout_below="@+id/recomendacion"
+            />
         </RelativeLayout>
 
 

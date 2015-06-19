@@ -30,7 +30,7 @@ public class Main extends ActionBarActivity{
 
         Button recomendacion= (Button) findViewById(R.id.recomendacion);
         Button busqueda= (Button) findViewById(R.id.busqueda);
-
+        Button grupos= (Button) findViewById(R.id.grupos);
         recomendacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +58,24 @@ public class Main extends ActionBarActivity{
                 if(isNetworkAvailable)
                 {
                    startActivity(new Intent(Main.this, BusquedaRestaurante.class));
+                }
+                else
+                {
+                    //lanzar mensaje de no hay conexion disponible.
+                    utils.connectionMessage(Main.this);
+
+                }
+            }
+
+        });
+        grupos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isNetworkAvailable=utils.isNetworkAvailable(Main.this);
+
+                if(isNetworkAvailable)
+                {
+                    startActivity(new Intent(Main.this,Grupos.class));
                 }
                 else
                 {

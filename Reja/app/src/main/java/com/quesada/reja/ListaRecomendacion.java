@@ -99,15 +99,12 @@ public class ListaRecomendacion extends Fragment {
 
             try {
 
-                this.obj=utils.recomendacion(urls[0]);
-                int length=obj.getJSONArray("recommendation").length();
+                this.obj=utils.getRequest(urls[0]);
+
 
 
             } catch (IOException e) {
                 //return "Unable to retrieve web page. URL may be invalid.";
-            } catch (JSONException e) {
-                e.printStackTrace();
-
             }
             //return null;
             return null;

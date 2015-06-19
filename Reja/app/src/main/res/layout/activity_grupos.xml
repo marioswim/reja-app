@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    tools:context="com.quesada.reja.Grupos">
+
+    <LinearLayout
+        android:id="@+id/botones_grupos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:text="Crear un grupo"
+            android:id="@+id/boton_crear_grupo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_weight="1"/>
+        <Button
+            android:text="Unirse a un grupo"
+            android:id="@+id/boton_unirse_grupo"
+            android:layout_width="fill_parent"
+            android:textSize="12dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_crear_grupo"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/botones_grupos"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:visibility="visible"
+        android:clickable="false">
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/frame_unirse_grupo"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/botones_grupos"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:visibility="gone">
+
+    </FrameLayout>
+
+</RelativeLayout>
