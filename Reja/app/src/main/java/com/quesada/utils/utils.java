@@ -61,8 +61,8 @@ public class utils {
 
 
     //private static String servidor = "http://sinbad2.ujaen.es/reja/rejaapi/";//Servidor
-    //private static String servidor = "http://192.168.1.143:1083/reja/rejaapi/";// En local desde otro pc
-    private static String servidor = "http://192.168.56.1:1083/reja/rejaapi/";// Todo desde le mismo pc
+    private static String servidor = "http://192.168.1.143:1083/reja/rejaapi/";// En local desde otro pc
+    //private static String servidor = "http://192.168.56.1:1083/reja/rejaapi/";// Todo desde le mismo pc
 
 
     /**

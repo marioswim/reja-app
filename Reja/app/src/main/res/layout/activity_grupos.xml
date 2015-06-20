@@ -10,7 +10,8 @@
         android:id="@+id/botones_grupos"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <Button
             android:text="Crear un grupo"
@@ -28,24 +29,6 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frame_crear_grupo"
-        android:layout_width="fill_parent"
-        android:layout_below="@id/botones_grupos"
-        android:layout_height="match_parent"
-        android:background="#000000"
-        android:visibility="visible"
-        android:clickable="false">
 
-    </FrameLayout>
-    <FrameLayout
-        android:id="@+id/frame_unirse_grupo"
-        android:layout_width="fill_parent"
-        android:layout_below="@id/botones_grupos"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:visibility="gone">
-
-    </FrameLayout>
 
 </RelativeLayout>

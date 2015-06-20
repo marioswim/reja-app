@@ -25,27 +25,14 @@ public class Grupos extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                FrameLayout crear= (FrameLayout) findViewById(R.id.frame_crear_grupo);
-                FrameLayout unirse= (FrameLayout) findViewById(R.id.frame_unirse_grupo);
 
-                crear.setVisibility(View.GONE);
-                unirse.setVisibility(View.VISIBLE);
-
-                unirse.setEnabled(false);
-                crear.setEnabled(true);
             }
         });
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FrameLayout crear= (FrameLayout) findViewById(R.id.frame_crear_grupo);
-                FrameLayout unirse= (FrameLayout) findViewById(R.id.frame_unirse_grupo);
 
-                crear.setVisibility(View.VISIBLE);
-                unirse.setVisibility(View.GONE);
-                crear.setEnabled(false);
-                unirse.setEnabled(true);
             }
         });
 
