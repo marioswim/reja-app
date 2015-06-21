@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.quesada.reja.Prueba$PlaceholderFragment"
+    >
+
+    <EditText
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:editable="true"
+        android:hint="Nombre del grupo a buscar"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/texto_buscar_grupos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffffffff" />
+
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lista_busqueda_grupos"
+        android:layout_below="@+id/texto_buscar_grupos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+
+
+
+
+</RelativeLayout>

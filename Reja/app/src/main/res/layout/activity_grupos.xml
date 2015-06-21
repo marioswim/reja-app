@@ -8,27 +8,75 @@
 
     <LinearLayout
         android:id="@+id/botones_grupos"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
 
-        <Button
+        >
+
+        <TextView
             android:text="Crear un grupo"
+            android:gravity="center"
             android:id="@+id/boton_crear_grupo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="12dp"
-            android:layout_weight="1"/>
-        <Button
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:editable="false"
+            android:elegantTextHeight="false" />
+        <TextView
             android:text="Unirse a un grupo"
+            android:gravity="center"
             android:id="@+id/boton_unirse_grupo"
             android:layout_width="fill_parent"
             android:textSize="12dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:layout_weight="1"
+            android:focusable="true"
 
+            android:clickable="true"
+            android:editable="false"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/separadores_grupos"
+        android:layout_below="@+id/botones_grupos"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+        <View
+
+            android:layout_weight="1"
+            android:id="@+id/separador_crear"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+
+            android:background="#ff9b9b9b"/>
+        <View
+
+            android:layout_weight="1"
+            android:id="@+id/separador_unirse"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+
+            android:background="#ff9b9b9b"/>
+
+
+        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/grupos_container"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/separadores_grupos"
+        />
 
 
 </RelativeLayout>
