@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by SobreMesa on 20/06/2015.
@@ -42,6 +44,9 @@ public class CrearGrupo extends Fragment{
     private View rootView;
     private ListView lista_miembros;
     private ListView lista_pendientes;
+    String nombreGrupo;
+
+    Members recarga;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,15 +59,18 @@ public class CrearGrupo extends Fragment{
 
         final EditText crear_grupo=(EditText) rootView.findViewById(R.id.nombre_crear_grupo);
         final LinearLayout reload= (LinearLayout) rootView.findViewById(R.id.refrescar_miembros);
+
+
+        //ImageView aceptar=(ImageView) rootView.findViewById(R.id.boton_aceptar_miembro);
         crear_grupo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
               @Override
               public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                   if(actionId == 0)
                   {
-                      String nombre=(String) crear_grupo.getText().toString();
+                    nombreGrupo=(String) crear_grupo.getText().toString();
 
-                      new AddGroup(rootView).execute(nombre,Login.iduser);
+                    new AddGroup(rootView).execute(nombreGrupo,Login.iduser);
                   }
 
                   return false;
@@ -82,21 +90,38 @@ public class CrearGrupo extends Fragment{
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre=(String) crear_grupo.getText().toString();
-                reload.setVisibility(View.VISIBLE);
-                new AddGroup(rootView).execute(nombre,Login.iduser);
+                nombreGrupo=(String) crear_grupo.getText().toString();
+
+                //if(recarga==null)
+                    recarga= (Members) new Members(rootView).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, nombreGrupo, Login.iduser);
             }
         });
 
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Members(rootView).execute((String) crear_grupo.getText().toString());
+                nombreGrupo=(String) crear_grupo.getText().toString();
+                //if(recarga==null)
+                    recarga= (Members) new Members(rootView).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, nombreGrupo, Login.iduser);
             }
         });
 
 
         return rootView;
+    }
+    @Override
+    public void onPause()
+    {
+        if(recarga!=null)
+           recarga.shutdown();
+        super.onPause();
+    }
+    @Override
+    public void onResume()
+    {
+        if(recarga!=null)
+            recarga= (Members) new Members(rootView).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, nombreGrupo, Login.iduser);
+        super.onResume();
     }
     private class AddGroup extends AsyncTask<String,Void,Void>
     {
@@ -147,10 +172,12 @@ public class CrearGrupo extends Fragment{
     private class Members extends AsyncTask<String,Void, Void>
     {
         ProgressDialog dialog;
+        Boolean stop;
         JSONObject obj;
         public Members(View view)
         {
             this.dialog=new ProgressDialog(rootView.getContext());
+            this.stop=false;
         }
         protected void onPreExecute()
         {
@@ -159,17 +186,102 @@ public class CrearGrupo extends Fragment{
         }
         @Override
         protected Void doInBackground(String... params) {
-            String nombre_grupo=params[0];
 
-            List<NameValuePair> postParams=new ArrayList<NameValuePair>();
-            postParams.add(new BasicNameValuePair("adminId",Login.iduser));
-            this.obj=utils.postRequest("/"+nombre_grupo+"/members",postParams);
-            System.out.println("");
+
+
+
+            while(!this.stop)
+            {
+                String nombre_grupo=params[0];
+                List<NameValuePair> postParams=new ArrayList<NameValuePair>();
+                postParams.add(new BasicNameValuePair("userId",Login.iduser));
+                this.obj=utils.postRequest("/"+nombre_grupo+"/members",postParams);
+                publishProgress();
+
+                /*try {
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+            }
 
             return null;
         }
+        @Override
+        protected void onProgressUpdate(Void... v)
+        {
+            this.dialog.dismiss();
+            ArrayList<Usuario> miembros=new ArrayList<Usuario>();
+            ArrayList<Usuario> pendientes=new ArrayList<Usuario>();
+            JSONArray json= null;
+            JSONArray json1=null;
+
+            try {
+                String status_code=obj.getString("status_code");
+
+
+                switch (status_code)
+                {
+                    case "200":
+                        try {
+                            json = obj.getJSONObject("miembros").getJSONArray("members");
+                            json1=obj.getJSONObject("pendientes").getJSONArray("users");
+                            for(int i=0;i<json.length();i++)
+                            {
+                                Usuario aux=new Usuario();
+                                int id=(Integer) json.getJSONObject(i).getInt("id");
+                                String username= (String) json.getJSONObject(i).getString("username");
+
+                                aux.setUserId(id);
+                                aux.setUsername(username);
+                                miembros.add(aux);
+                            }
+                            for(int i=0;i<json1.length();i++)
+                            {
+                                Usuario aux=new Usuario();
+                                int id=(Integer) json1.getJSONObject(i).getInt("id");
+                                String username= (String) json1.getJSONObject(i).getString("username");
+
+                                aux.setUserId(id);
+                                aux.setUsername(username);
+                                pendientes.add(aux);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        AdapterUsuario adapterMiembros=null;
+                        AdapterUsuario adapterPendientes = null;
+                        adapterMiembros = new AdapterUsuario(getActivity(), miembros,nombreGrupo);
+                        lista_miembros.setAdapter(adapterMiembros);
+
+                        adapterMiembros.notifyDataSetChanged();
+
+                        adapterPendientes = new AdapterUsuario(getActivity(),pendientes,nombreGrupo);
+                        lista_pendientes.setAdapter(adapterPendientes);
+                        adapterPendientes.notifyDataSetChanged();
+                    break;
+                    case "500":
+                        String message=obj.getString("message");
+                        this.stop=true;
+                        Toast.makeText(rootView.getContext(),message , Toast.LENGTH_LONG).show();
+                        break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         protected void onPostExecute(Void v)
         {
+            /*
             this.dialog.dismiss();
             Log.d("TAG", "p execute");
             ArrayList<Usuario> miembros=new ArrayList<Usuario>();
@@ -204,13 +316,24 @@ public class CrearGrupo extends Fragment{
             }
 
 
-            AdapterUsuario adapterMiembros= new AdapterUsuario(getActivity(), miembros);
+            AdapterUsuario adapterMiembros=null;
+            AdapterUsuario adapterPendientes = null;
+            adapterMiembros = new AdapterUsuario(getActivity(), miembros,nombreGrupo);
             lista_miembros.setAdapter(adapterMiembros);
 
             adapterMiembros.notifyDataSetChanged();
-            AdapterUsuario adapterPendientes= new AdapterUsuario(getActivity(),pendientes);
+
+            adapterPendientes = new AdapterUsuario(getActivity(),pendientes,nombreGrupo);
             lista_pendientes.setAdapter(adapterPendientes);
-            adapterPendientes.notifyDataSetChanged();
+            adapterPendientes.notifyDataSetChanged();*/
         }
+
+        public void shutdown()
+        {
+            this.stop=true;
+        }
+
+
     }
+
 }

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
+import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 public class Grupos extends ActionBarActivity {
@@ -23,7 +28,7 @@ public class Grupos extends ActionBarActivity {
         setContentView(R.layout.activity_grupos);
 
         final TextView unirse= (TextView) findViewById(R.id.boton_unirse_grupo);
-        TextView crear= (TextView) findViewById(R.id.boton_crear_grupo);
+        final TextView crear= (TextView) findViewById(R.id.boton_crear_grupo);
         final CrearGrupo crearGrupo= new CrearGrupo();
         final UnirseGrupo unirseGrupo=new UnirseGrupo();
         final View separador_crear= (View) findViewById(R.id.separador_crear);
@@ -32,7 +37,8 @@ public class Grupos extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-
+            unirse.setBackgroundColor(0x14000000);
+            crear.setBackgroundColor(0x00000000);
             separador_unirse.setBackgroundColor(0xFF2CFF00);
             separador_crear.setBackgroundColor(0xff9b9b9b);
                 if(savedInstanceState==null)
@@ -49,6 +55,8 @@ public class Grupos extends ActionBarActivity {
 
             public void onClick(View v) {
 
+            crear.setBackgroundColor(0x14000000);
+                unirse.setBackgroundColor(0x00000000);
             separador_crear.setBackgroundColor(0xFF2CFF00);
             separador_unirse.setBackgroundColor(0xff9b9b9b);
                 if(savedInstanceState==null)

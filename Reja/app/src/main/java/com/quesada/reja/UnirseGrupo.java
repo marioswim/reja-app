@@ -166,6 +166,9 @@ public class UnirseGrupo extends Fragment{
                     case "0":
                         Toast.makeText(rootView.getContext(), message, Toast.LENGTH_LONG).show();
                         break;
+                    case "500":
+                        Toast.makeText(rootView.getContext(), message, Toast.LENGTH_LONG).show();
+                        break;
                     case "1062":
                         Toast.makeText(rootView.getContext(), "Ya has realizado la petición en este grupo", Toast.LENGTH_LONG).show();
                         break;
