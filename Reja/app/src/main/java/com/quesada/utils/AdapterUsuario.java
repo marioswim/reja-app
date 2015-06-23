@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quesada.reja.CrearGrupo;
+import com.quesada.reja.ListenerRefresh;
 import com.quesada.reja.Login;
 import com.quesada.reja.R;
 
@@ -32,13 +33,13 @@ public class AdapterUsuario extends BaseAdapter {
 
     ArrayList<Usuario> lista_usuarios;
     String nombreGrupo;
-
+    ListenerRefresh fragmet;
     private Context contexto;
     private static LayoutInflater inflater = null;
 
 
-    public AdapterUsuario(Context contexto, ArrayList<Usuario> user,String nombre) {
-
+    public AdapterUsuario(Context contexto, ArrayList<Usuario> user,String nombre,ListenerRefresh l) {
+        this.fragmet=l;
         this.contexto = contexto;
         this.nombreGrupo=nombre;
         this.lista_usuarios = user;
@@ -122,7 +123,8 @@ public class AdapterUsuario extends BaseAdapter {
         return convertView;
     }
 
-    public void newAdapter(ArrayList<Usuario> lista_usuarios,String nombre ) {
+    public void newAdapter(ArrayList<Usuario> lista_usuarios,String nombre,ListenerRefresh l ) {
+        this.fragmet=l;
         this.lista_usuarios = lista_usuarios;
         this.nombreGrupo=nombre;
         inflater = (LayoutInflater) contexto
@@ -164,42 +166,12 @@ public class AdapterUsuario extends BaseAdapter {
 
             return null;
         }
-        /*protected void onPostExecute(Void v)
+        protected void onPostExecute(Void v)
         {
 
-            Log.d("TAG", "p execute");
-            ArrayList<Usuario> miembros=new ArrayList<Usuario>();
-            ArrayList<Usuario> pendientes=new ArrayList<Usuario>();
-            JSONArray json= null;
-            JSONArray json1=null;
-            try {
-                json = obj.getJSONObject("miembros").getJSONArray("members");
-                json1=obj.getJSONObject("pendientes").getJSONArray("users");
-                for(int i=0;i<json.length();i++)
-                {
-                    Usuario aux=new Usuario();
-                    int id=(Integer) json.getJSONObject(i).getInt("id");
-                    String username= (String) json.getJSONObject(i).getString("username");
+            fragmet.refresh();
 
-                    aux.setUserId(id);
-                    aux.setUsername(username);
-                    miembros.add(aux);
-                }
-                for(int i=0;i<json1.length();i++)
-                {
-                    Usuario aux=new Usuario();
-                    int id=(Integer) json1.getJSONObject(i).getInt("id");
-                    String username= (String) json1.getJSONObject(i).getString("username");
-
-                    aux.setUserId(id);
-                    aux.setUsername(username);
-                    pendientes.add(aux);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }*/
+        }
     }
     private class DenyUser extends AsyncTask<String,Void, Void>
     {
@@ -229,9 +201,9 @@ public class AdapterUsuario extends BaseAdapter {
 
             return null;
         }
-        /*protected void onPostExecute(Void v)
+        protected void onPostExecute(Void v)
         {
-
+/*
             Log.d("TAG", "p execute");
             ArrayList<Usuario> miembros=new ArrayList<Usuario>();
             ArrayList<Usuario> pendientes=new ArrayList<Usuario>();
@@ -262,9 +234,9 @@ public class AdapterUsuario extends BaseAdapter {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-
-        }*/
+            }*/
+            fragmet.refresh();
+        }
     }
 
 }
