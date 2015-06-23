@@ -35,7 +35,7 @@ public class AdapterUsuario extends BaseAdapter {
     String nombreGrupo;
     ListenerRefresh fragmet;
     private Context contexto;
-    private static LayoutInflater inflater = null;
+    protected   LayoutInflater inflater = null;
 
 
     public AdapterUsuario(Context contexto, ArrayList<Usuario> user,String nombre,ListenerRefresh l) {
@@ -138,7 +138,7 @@ public class AdapterUsuario extends BaseAdapter {
         return false;
     }*/
 
-    private class AcceptUser extends AsyncTask<String,Void, Void>
+    protected class AcceptUser extends AsyncTask<String,Void, Void>
     {
         ProgressDialog dialog;
         JSONObject obj;
@@ -173,7 +173,7 @@ public class AdapterUsuario extends BaseAdapter {
 
         }
     }
-    private class DenyUser extends AsyncTask<String,Void, Void>
+    protected class DenyUser extends AsyncTask<String,Void, Void>
     {
         ProgressDialog dialog;
         JSONObject obj;

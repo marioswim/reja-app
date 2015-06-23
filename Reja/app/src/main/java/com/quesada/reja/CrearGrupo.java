@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quesada.utils.AdapterMiembros;
 import com.quesada.utils.AdapterRecomendacion;
 import com.quesada.utils.AdapterUsuario;
 import com.quesada.utils.Restaurante;
@@ -240,9 +241,9 @@ public class CrearGrupo extends Fragment implements ListenerRefresh{
                         }
 
 
-                        AdapterUsuario adapterMiembros=null;
+                        AdapterMiembros adapterMiembros=null;
                         AdapterUsuario adapterPendientes = null;
-                        adapterMiembros = new AdapterUsuario(getActivity(), miembros,nombreGrupo,listen);
+                        adapterMiembros = new AdapterMiembros(getActivity(), miembros,nombreGrupo,listen);
                         lista_miembros.setAdapter(adapterMiembros);
 
                         adapterMiembros.notifyDataSetChanged();
