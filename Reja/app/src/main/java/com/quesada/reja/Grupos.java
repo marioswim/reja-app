@@ -37,8 +37,8 @@ public class Grupos extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-            unirse.setBackgroundColor(0x14000000);
-            crear.setBackgroundColor(0x00000000);
+            unirse.setBackgroundColor(0xFF009AD7);
+            crear.setBackgroundColor(0xFF00B5FF);
             separador_unirse.setBackgroundColor(0xFF2CFF00);
             separador_crear.setBackgroundColor(0xff9b9b9b);
                 if(savedInstanceState==null)
@@ -55,8 +55,8 @@ public class Grupos extends ActionBarActivity {
 
             public void onClick(View v) {
 
-            crear.setBackgroundColor(0x14000000);
-                unirse.setBackgroundColor(0x00000000);
+            crear.setBackgroundColor(0xFF009AD7);
+                unirse.setBackgroundColor(0xFF00B5FF);
             separador_crear.setBackgroundColor(0xFF2CFF00);
             separador_unirse.setBackgroundColor(0xff9b9b9b);
                 if(savedInstanceState==null)

@@ -95,8 +95,8 @@ public class CrearGrupo extends Fragment implements ListenerRefresh{
             public void onClick(View v) {
                 nombreGrupo=(String) crear_grupo.getText().toString();
 
-                //if(recarga==null)
-                    new Members(rootView).execute( nombreGrupo, Login.iduser);
+                if(!nombreGrupo.equals(""))
+                    new AddGroup(rootView).execute(nombreGrupo,Login.iduser);
             }
         });
 

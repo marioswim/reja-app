@@ -100,10 +100,7 @@ public class AdapterUsuario extends BaseAdapter {
             public void onClick(View v) {
 
                 int id=lista_usuarios.get(aux).getUserId();
-
-
-                AcceptUser admitir=new AcceptUser();
-                admitir.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, nombreGrupo, Integer.toString(id));
+                new AcceptUser().execute(nombreGrupo, Integer.toString(id));
 
 
 
@@ -114,8 +111,7 @@ public class AdapterUsuario extends BaseAdapter {
             public void onClick(View v) {
 
                 int id=lista_usuarios.get(aux).getUserId();
-                DenyUser denegar=new DenyUser();
-                denegar.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,nombreGrupo,Integer.toString(id));
+                new DenyUser().execute(nombreGrupo,Integer.toString(id));
 
             }
         });
