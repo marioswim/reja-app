@@ -243,12 +243,14 @@ public class CrearGrupo extends Fragment implements ListenerRefresh{
 
                         AdapterMiembros adapterMiembros=null;
                         AdapterUsuario adapterPendientes = null;
-                        adapterMiembros = new AdapterMiembros(getActivity(), miembros,nombreGrupo,listen);
+                        adapterMiembros = new AdapterMiembros(getActivity(), miembros,nombreGrupo);
+                        adapterMiembros.addListener(listen);
                         lista_miembros.setAdapter(adapterMiembros);
 
                         adapterMiembros.notifyDataSetChanged();
 
-                        adapterPendientes = new AdapterUsuario(getActivity(),pendientes,nombreGrupo,listen);
+                        adapterPendientes = new AdapterUsuario(getActivity(),pendientes,nombreGrupo);
+                        adapterPendientes.addListener(listen);
                         lista_pendientes.setAdapter(adapterPendientes);
                         adapterPendientes.notifyDataSetChanged();
                         break;

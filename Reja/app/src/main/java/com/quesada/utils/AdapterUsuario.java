@@ -35,11 +35,11 @@ public class AdapterUsuario extends BaseAdapter {
     String nombreGrupo;
     ListenerRefresh fragmet;
     private Context contexto;
-    protected   LayoutInflater inflater = null;
+    protected static LayoutInflater inflater = null;
 
 
-    public AdapterUsuario(Context contexto, ArrayList<Usuario> user,String nombre,ListenerRefresh l) {
-        this.fragmet=l;
+    public AdapterUsuario(Context contexto, ArrayList<Usuario> user,String nombre) {
+
         this.contexto = contexto;
         this.nombreGrupo=nombre;
         this.lista_usuarios = user;
@@ -123,13 +123,18 @@ public class AdapterUsuario extends BaseAdapter {
         return convertView;
     }
 
-    public void newAdapter(ArrayList<Usuario> lista_usuarios,String nombre,ListenerRefresh l ) {
-        this.fragmet=l;
+    public void newAdapter(ArrayList<Usuario> lista_usuarios,String nombre) {
+
         this.lista_usuarios = lista_usuarios;
         this.nombreGrupo=nombre;
         inflater = (LayoutInflater) contexto
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+    }
+
+    public void addListener(ListenerRefresh l)
+    {
+        this.fragmet=l;
     }
 /*
     @Override
