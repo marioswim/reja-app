@@ -26,11 +26,10 @@ public class AdapterMiembros extends AdapterUsuario
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         convertView=super.getView(position,convertView,parent);
+
         ImageView aceptar= (ImageView) convertView.findViewById(R.id.boton_aceptar_miembro);
 
         aceptar.setVisibility(View.INVISIBLE);
-
-
 
         return convertView;
     }
