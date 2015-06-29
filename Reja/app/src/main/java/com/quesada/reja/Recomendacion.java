@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.quesada.utils.utils;
 
@@ -19,12 +20,16 @@ public class Recomendacion extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recomendacion);
 
-
+        TextView   lista =(TextView) findViewById(R.id.boton_lista_recomendacion);
+        TextView   contexto=(TextView) findViewById(R.id.boton_activar_contexto);
+        TextView   geolocalizar =(TextView) findViewById(R.id.boton_geolocalizar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new ListaRecomendacion())
                     .commit();
+
+            lista.setBackgroundColor(0xFF009AD7);
         }
 
 

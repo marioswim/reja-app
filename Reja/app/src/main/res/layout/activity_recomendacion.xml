@@ -1,8 +1,63 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.quesada.reja.Prueba"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        >
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:layout_below="@id/container"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:background="#FF00B5FF"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:editable="false"
+            android:id="@+id/boton_lista_recomendacion"
+            android:text="Lista"/>
+        <TextView
+            android:background="#FF00B5FF"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:editable="false"
+            android:id="@+id/boton_activar_contexto"
+            android:text="contexto"/>
+        <TextView
+            android:background="#FF00B5FF"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:editable="false"
+            android:id="@+id/boton_geolocalizar"
+            android:text="Geolocalizar"/>
+
+        </LinearLayout>
+
+
+</LinearLayout>
 
