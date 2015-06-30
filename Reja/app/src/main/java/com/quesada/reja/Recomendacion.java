@@ -33,7 +33,13 @@ public class Recomendacion extends ActionBarActivity {
 
             lista.setBackgroundColor(0xFF009AD7);
         }
-
+        lista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                geolocalizar.setBackgroundColor(0xFF00B5FF);
+                lista.setBackgroundColor(0xFF009AD7);
+            }
+        });
         geolocalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
