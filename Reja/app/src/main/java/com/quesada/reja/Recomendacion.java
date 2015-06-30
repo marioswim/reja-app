@@ -2,11 +2,13 @@ package com.quesada.reja;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.quesada.utils.utils;
@@ -20,9 +22,9 @@ public class Recomendacion extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recomendacion);
 
-        TextView   lista =(TextView) findViewById(R.id.boton_lista_recomendacion);
+        final TextView   lista =(TextView) findViewById(R.id.boton_lista_recomendacion);
         TextView   contexto=(TextView) findViewById(R.id.boton_activar_contexto);
-        TextView   geolocalizar =(TextView) findViewById(R.id.boton_geolocalizar);
+        final TextView   geolocalizar =(TextView) findViewById(R.id.boton_geolocalizar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -32,9 +34,16 @@ public class Recomendacion extends ActionBarActivity {
             lista.setBackgroundColor(0xFF009AD7);
         }
 
+        geolocalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lista.setBackgroundColor(0xFF00B5FF);
+                geolocalizar.setBackgroundColor(0xFF009AD7);
+                startActivity(new Intent(Recomendacion.this,MapsActivity.class));
+            }
+        });
 
     }
-
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
