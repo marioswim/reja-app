@@ -27,12 +27,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
         mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         // Add a marker in Sydney, Australia, and move the camera.
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng baseposition = new LatLng(37.7731245,-3.7886943);
         ArrayList<Restaurante> aux=Recomendacion.listaRecomendacion;
 
