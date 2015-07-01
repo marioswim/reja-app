@@ -131,6 +131,8 @@ public class ListaRecomendacion extends Fragment {
                             json.getJSONObject(i).getInt("id"));
 
                     aux.setRating(json.getJSONObject(i).getDouble("preference"));
+                    aux.setLongitud(json.getJSONObject(i).getDouble("longitude"));
+                    aux.setLatitud(json.getJSONObject(i).getDouble("latitude"));
                     recomendacion.add(aux);
                 }
             } catch (JSONException e) {

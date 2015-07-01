@@ -11,6 +11,25 @@ public class Restaurante {
     private String nombre;
     private int telefono;
     private boolean terraza;
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    private double latitud;
+    private double longitud;
     private int id;
 
 
