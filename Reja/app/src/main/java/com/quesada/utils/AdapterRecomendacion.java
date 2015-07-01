@@ -30,6 +30,11 @@ public class AdapterRecomendacion extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public ArrayList<Restaurante> getList()
+    {
+        return entradas;
+    }
+
 
     
 

@@ -9,14 +9,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.quesada.utils.AdapterRecomendacion;
+import com.quesada.utils.Restaurante;
 import com.quesada.utils.utils;
+
+import java.util.ArrayList;
 
 
 public class Recomendacion extends ActionBarActivity {
 
-
+    public  static ArrayList<Restaurante> listaRecomendacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +38,28 @@ public class Recomendacion extends ActionBarActivity {
 
             lista.setBackgroundColor(0xFF009AD7);
         }
-        lista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                geolocalizar.setBackgroundColor(0xFF00B5FF);
-                lista.setBackgroundColor(0xFF009AD7);
-            }
-        });
+
         geolocalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lista.setBackgroundColor(0xFF00B5FF);
-                geolocalizar.setBackgroundColor(0xFF009AD7);
-                startActivity(new Intent(Recomendacion.this,MapsActivity.class));
+
+                ListView recomendacion=(ListView) findViewById(R.id.recomendacion);
+
+                Bundle aux=new Bundle();
+                AdapterRecomendacion lista= (AdapterRecomendacion) ((ListView) findViewById(R.id.recomendacion)).getAdapter();
+
+                listaRecomendacion=lista.getList();
+
+                Intent intent=new Intent(Recomendacion.this,MapsActivity.class);
+
+
+
+
+
+
+
+
+                startActivity(intent);
             }
         });
 
