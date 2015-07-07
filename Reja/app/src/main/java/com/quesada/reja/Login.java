@@ -1,15 +1,37 @@
 package com.quesada.reja;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.common.SignInButton;
+import com.quesada.utils.utils;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Login extends ActionBarActivity {
+
 
     public static String iduser;
     @Override
@@ -17,36 +39,112 @@ public class Login extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button login = (Button) findViewById(R.id.login);
-        login.setOnClickListener(new View.OnClickListener() {
+        SignInButton g=(SignInButton) findViewById(R.id.sign_in_button);
+
+
+        final String[] correos=accounts();
+
+        g.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this, Main.class));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                builder.setTitle("Seleccione una cuenta")
+                        .setItems(correos, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String cuenta=correos[which];
+                                View root = findViewById(R.id.activity_login);
+                                new LoginRequest(root.getContext()).execute(cuenta);
+                            }
+                        });
+                builder.show();
             }
         });
-        iduser="33346";
     }
 
+    private String[] accounts()
+    {
+      ArrayList<String> aux=new ArrayList<String>();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
+        try{
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            Account[] accounts = AccountManager.get(this).getAccountsByType("com.google");
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            for (Account account : accounts) {
+
+                aux.add(account.name);
+
+            }
         }
 
-        return super.onOptionsItemSelected(item);
+
+        catch(Exception e)
+        {
+            Log.i("Exception", "Exception:" + e) ;
+        }
+        String[] cuentas= new String[aux.size()];
+        cuentas=aux.toArray(cuentas);
+        return cuentas;
+    }
+
+    private class LoginRequest extends AsyncTask<String,Void,Void>
+    {
+        JSONObject obj=null;
+        ProgressDialog dialog;
+        Context context;
+        public LoginRequest(Context root){
+
+            this.context=root;
+            this.dialog=new ProgressDialog(root);
+        }
+        protected  void onPreExecute()
+        {
+            this.dialog.setMessage("Login");
+            this.dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+            postParams.add(new BasicNameValuePair("email", params[0]));
+
+            this.obj= utils.postRequest("login",postParams);
+
+
+            return null;
+        }
+
+
+        protected void onPostExecute(Void v)
+        {
+            this.dialog.dismiss();
+            if (obj!=null)
+            {
+
+                try {
+                    int code = obj.getInt("status_code");
+                    switch (code) {
+                        case 200:
+
+                            iduser=obj.getString("userId");
+                            Toast.makeText(context, "Login correcto", Toast.LENGTH_SHORT);
+                            startActivity(new Intent(Login.this, Main.class));
+                            break;
+                        case 201:
+                            iduser=obj.getString("userId");
+                            Toast.makeText(context, "Usuario Registrado Correctamente", Toast.LENGTH_SHORT);
+                            startActivity(new Intent(Login.this, Main.class));
+                            break;
+                        case 500:
+
+                            Toast.makeText(context, "Error durante el proceso, intentelo mas tarde", Toast.LENGTH_LONG);
+                            break;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
