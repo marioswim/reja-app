@@ -4,19 +4,28 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
-    tools:context="com.quesada.reja.Login">
 
+    tools:context="com.quesada.reja.Login"
+    >
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/login"
+        android:scaleType="centerCrop"
+         />
 
 
     <com.google.android.gms.common.SignInButton
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:id="@+id/sign_in_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:text="Login"/>
+        android:text="Login"
+        />
 
 
 

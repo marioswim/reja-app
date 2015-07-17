@@ -41,47 +41,125 @@ tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:id="@+id/imageView"
         android:scaleType="centerCrop"
         android:src="@drawable/cubiertos"
     />
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="75dp"
+        android:id="@+id/menu_fila_1"
         android:layout_width="fill_parent"
         android:padding="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/imageView"
-        android:layout_height="wrap_content">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="121dp"
+            android:layout_weight="1"
+            android:id="@+id/recomendacion">
 
-            android:text="Recomendación"
-            android:id="@+id/recomendacion"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="121dp"
-            android:layout_marginLeft="200dp"
-            android:text="Búsqueda"
-            android:id="@+id/busqueda"
+            <ImageView
+                android:src="@drawable/recomendacion"
+                android:layout_width="fill_parent"
 
-            />
-        <Button
-            android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Ajustes"
+                android:id="@+id/img_recomendacion"
+                />
+            <TextView
+                android:layout_below="@id/img_recomendacion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Recomendación"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="121dp"
-            android:text="Grupos"
-            android:id="@+id/grupos"
-            android:layout_below="@+id/recomendacion"
-            />
+            android:layout_weight="1"
+            android:id="@+id/busqueda">
+
+            <ImageView
+                android:src="@drawable/serach"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="Ajustes"
+                android:id="@+id/img_busqueda"
+                />
+            <TextView
+                android:layout_below="@id/img_busqueda"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Búsqueda"/>
+
         </RelativeLayout>
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_below="@id/menu_fila_1"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/grupos">
+
+            <ImageView
+                android:src="@drawable/group"
+                android:layout_width="fill_parent"
+
+                android:layout_height="50dp"
+                android:text="Ajustes"
+                android:id="@+id/img_grupos"
+                />
+            <TextView
+                android:layout_below="@id/img_grupos"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Grupos"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/ajustes">
+
+
+
+            <ImageView
+                android:src="@drawable/setting"
+                android:layout_width="fill_parent"
+
+                android:layout_height="50dp"
+                android:text="Ajustes"
+                android:id="@+id/img_ajustes"
+                />
+            <TextView
+                android:layout_below="@id/img_ajustes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Ajustes"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
 
 
