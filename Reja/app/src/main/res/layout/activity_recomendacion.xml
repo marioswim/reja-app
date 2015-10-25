@@ -23,8 +23,8 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:background="#FF00B5FF"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/fondo_pestaña"
+            android:textColor="@color/texto_pestaña"
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -34,8 +34,8 @@
             android:id="@+id/boton_lista_recomendacion"
             android:text="Lista"/>
         <TextView
-            android:background="#FF00B5FF"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/fondo_pestaña"
+            android:textColor="@color/texto_pestaña"
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -45,8 +45,8 @@
             android:id="@+id/boton_activar_contexto"
             android:text="contexto"/>
         <TextView
-            android:background="#FF00B5FF"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/fondo_pestaña"
+            android:textColor="@color/texto_pestaña"
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

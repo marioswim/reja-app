@@ -27,6 +27,8 @@ public class Grupos extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupos);
 
+        getSupportActionBar().setElevation(0);
+
         final TextView unirse= (TextView) findViewById(R.id.boton_unirse_grupo);
         final TextView crear= (TextView) findViewById(R.id.boton_crear_grupo);
         final CrearGrupo crearGrupo= new CrearGrupo();
@@ -37,10 +39,10 @@ public class Grupos extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-            unirse.setBackgroundColor(0xFF009AD7);
-            crear.setBackgroundColor(0xFF00B5FF);
-            separador_unirse.setBackgroundColor(0xFF2CFF00);
-            separador_crear.setBackgroundColor(0xff9b9b9b);
+            unirse.setBackgroundColor(getResources().getColor(R.color.fondo_pestaña_activo));
+            crear.setBackgroundColor(getResources().getColor(R.color.fondo_pestaña));
+            separador_unirse.setBackgroundColor(getResources().getColor(R.color.separador_pestaña_activo));
+            separador_crear.setBackgroundColor(getResources().getColor(R.color.separador_pestaña));
                 if(savedInstanceState==null)
                 {
 
@@ -55,10 +57,10 @@ public class Grupos extends ActionBarActivity {
 
             public void onClick(View v) {
 
-            crear.setBackgroundColor(0xFF009AD7);
-                unirse.setBackgroundColor(0xFF00B5FF);
-            separador_crear.setBackgroundColor(0xFF2CFF00);
-            separador_unirse.setBackgroundColor(0xff9b9b9b);
+            crear.setBackgroundColor(getResources().getColor(R.color.fondo_pestaña_activo));
+                unirse.setBackgroundColor(getResources().getColor(R.color.fondo_pestaña));
+            separador_crear.setBackgroundColor(getResources().getColor(R.color.separador_pestaña_activo));
+            separador_unirse.setBackgroundColor(getResources().getColor(R.color.separador_pestaña));
                 if(savedInstanceState==null)
                 {
 

@@ -36,7 +36,7 @@ public class Recomendacion extends ActionBarActivity {
                     .add(R.id.container, new ListaRecomendacion())
                     .commit();
 
-            lista.setBackgroundColor(0xFF009AD7);
+            lista.setBackgroundColor(getResources().getColor(R.color.fondo_pestaña_activo));
         }
 
         geolocalizar.setOnClickListener(new View.OnClickListener() {

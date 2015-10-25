@@ -8,15 +8,15 @@
     <LinearLayout
         android:id="@+id/botones_grupos"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
 
         >
 
         <TextView
             android:paddingTop="5dp"
-            android:background="#FF00B5FF"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/fondo_pestaña"
+            android:textColor="@color/texto_pestaña"
             android:textStyle="bold"
             android:paddingBottom="5dp"
             android:text="Crear un grupo"
@@ -24,21 +24,21 @@
             android:id="@+id/boton_crear_grupo"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:editable="false"
             android:elegantTextHeight="false" />
         <TextView
-            android:background="#FF00B5FF"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/fondo_pestaña"
+            android:textColor="@color/texto_pestaña"
             android:textStyle="bold"
             android:text="Unirse a un grupo"
             android:gravity="center"
             android:id="@+id/boton_unirse_grupo"
             android:layout_width="fill_parent"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:focusable="true"
@@ -63,7 +63,7 @@
             android:layout_width="fill_parent"
             android:layout_height="3dp"
 
-            android:background="#ff9b9b9b"/>
+            android:background="@color/separador_pestaña"/>
         <View
 
             android:layout_weight="1"
@@ -71,7 +71,7 @@
             android:layout_width="fill_parent"
             android:layout_height="3dp"
 
-            android:background="#ff9b9b9b"/>
+            android:background="@color/separador_pestaña"/>
 
 
         </LinearLayout>
