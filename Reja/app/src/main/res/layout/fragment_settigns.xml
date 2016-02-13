@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.quesada.fragments.Settings">
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/mis_puntuaciones"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:text="Mis puntuaciones"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9.45"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow_left"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.55"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/setting_separador_1"
+            android:layout_marginTop="0dp"
+            android:layout_below="@+id/mis_puntuaciones"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/disable"/>
+
+    <LinearLayout
+        android:id="@+id/pantalla_principal_container"
+        android:layout_below="@+id/setting_separador_1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+       <!-- android:layout_below="@+id/setting_separador_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:layout_weight="2.5"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="Recomendación"
+            android:id="@+id/radioButton1"
+            android:layout_below="@+id/setting_separador_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            />
+        <RadioButton
+            android:layout_weight="2.5"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="Busqueda"
+            android:id="@+id/radioButton2"
+            android:layout_below="@+id/setting_separador_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+           />
+        <RadioButton
+            android:layout_weight="2.5"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="Recomendación a Grupos"
+            android:id="@+id/radioButton3"
+            android:layout_below="@+id/setting_separador_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+           />
+        <RadioButton
+            android:layout_weight="2.5"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="Opciones"
+            android:id="@+id/radioButton4"
+            android:layout_below="@+id/setting_separador_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />-->
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Pantalla Principal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="9.45"
+        />
+        <ImageView
+            android:layout_weight="0.55"
+            android:layout_width="0dp"
+            android:src="@drawable/arrow"
+            android:scaleType="fitCenter"
+            android:layout_height="fill_parent" />
+
+
+    </LinearLayout>
+    <ListView
+
+        android:id="@+id/pantalla_principal"
+        android:layout_below="@+id/pantalla_principal_container"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/pantalla_principal"
+        android:id="@+id/setting_separador_2"
+        android:layout_width="fill_parent"
+        android:background="@color/disable"
+        android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/setting_separador_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                    <TextView
+                        android:layout_weight="7"
+                        android:text="Distancia:"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_distancia"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+            </LinearLayout>
+            <SeekBar
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/distancia_contexto"
+                android:layout_below="@+id/setting_separador_2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:max="120"
+
+                />
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/borrar_cuenta"
+        android:layout_weight="1"
+        android:text="Desvincular Cuenta"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

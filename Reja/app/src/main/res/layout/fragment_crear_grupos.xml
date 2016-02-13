@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.quesada.reja.Prueba$PlaceholderFragment"
     >
 
@@ -42,16 +41,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-
-
             android:layout_width="fill_parent"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:hint="Refrescar Miembros"
             android:gravity="center"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-/>
+            android:layout_alignParentStart="true"/>
         <ImageView
             android:padding="3dp"
             android:layout_width="fill_parent"
@@ -68,34 +64,41 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@id/refrescar_miembros"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/texto_miembros"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
 
+            android:paddingRight="5dp"
+            android:layout_weight="0.5"
+            android:text="Miembros del grupo"
+            android:gravity="center_vertical"/>
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
             android:id="@+id/lista_usuarios"
-            android:layout_below="@+id/refrescar_miembros"
+
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_weight="1"/>
+            android:layout_weight="4.5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+
+            android:paddingRight="5dp"
+            android:text="Peticiones pendientes"
+            android:gravity="center_vertical"/>
         <ListView
-            android:layout_weight="1"
+            android:layout_weight="4.5"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
             android:id="@+id/lista_pendientes"
-            android:layout_below="@+id/lista_usuarios"
+
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         </LinearLayout>
-
-
-
-
-
-
-
-
-
 </RelativeLayout>

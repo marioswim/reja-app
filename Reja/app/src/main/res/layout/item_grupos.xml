@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="32dp"
+    android:layout_height="42dp"
     android:orientation="horizontal"
+    android:layout_marginTop="10dp"
     >
     <!-- android:padding="16dp" -->
 
@@ -10,24 +11,24 @@
 
     <TextView
         android:id="@+id/nombre_grupo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Nombre Restaurante"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:text="Nombre Grupo"
         android:textSize="@dimen/nombre_restaurante"
 
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_weight="1"/>
+        android:layout_weight="8.5"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/boton_peticion_grupo"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:drawableLeft="@drawable/plus"
-
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:src="@drawable/plus"
+        android:scaleType="fitCenter"
+        android:padding="5dp"
         android:layout_below="@+id/nombre_grupo"
-        android:layout_weight="10"/>
+        android:layout_weight="1.5"/>
 
 
 
