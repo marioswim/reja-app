@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -32,6 +33,7 @@ public class Menu extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setElevation(0);
 
         Login.iduser="33346";
 
@@ -46,21 +48,12 @@ public class Menu extends ActionBarActivity {
 
 
             final TextView rec = (TextView) findViewById(R.id.recomendacion);
-            TextView busqueda = (TextView) findViewById(R.id.busqueda);
-            TextView grupos = (TextView) findViewById(R.id.grupos);
-            TextView ajustes = (TextView) findViewById(R.id.ajustes);
+            final TextView busqueda = (TextView) findViewById(R.id.busqueda);
+            final TextView grupos = (TextView) findViewById(R.id.grupos);
+            final TextView ajustes = (TextView) findViewById(R.id.ajustes);
 
 
 
-
-    /*
-            SharedPreferences preferences=getSharedPreferences("Mis preferencias",MODE_PRIVATE);
-            SharedPreferences.Editor edit=preferences.edit();
-            edit.clear();
-            edit.commit(;*/
-
-
-            //TODO crear navigation drawer, para eliminar este menu
             rec.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,16 +65,17 @@ public class Menu extends ActionBarActivity {
 
                     if (isNetworkAvailable) {
 
-                        Recomendacion recomendacion=new Recomendacion();
+                        rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
+                        busqueda.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        grupos.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        ajustes.setBackgroundColor(getResources().getColor(R.color.blue_disable));
 
+                        Recomendacion recomendacion=new Recomendacion();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,recomendacion).commit();
 
 
-
-
-                        //startActivity(new Intent(Menu.this, Recomendacion.class));
                     } else {
-                        //lanzar mensaje de no hay conexion disponible.
+
                         utils.connectionMessage(Menu.this);
 
                     }
@@ -93,7 +87,14 @@ public class Menu extends ActionBarActivity {
                 public void onClick(View v) {
                     boolean isNetworkAvailable = utils.isNetworkAvailable(Menu.this);
 
+
+
                     if (isNetworkAvailable) {
+                        rec.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        busqueda.setBackgroundColor(getResources().getColor(R.color.blue_enable));
+                        grupos.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        ajustes.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+
                         BusquedaRestaurantes busqueda=new BusquedaRestaurantes();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,busqueda).commit();
                     } else {
@@ -110,6 +111,10 @@ public class Menu extends ActionBarActivity {
                     boolean isNetworkAvailable = utils.isNetworkAvailable(Menu.this);
 
                     if (isNetworkAvailable) {
+                        rec.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        busqueda.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                        grupos.setBackgroundColor(getResources().getColor(R.color.blue_enable));
+                        ajustes.setBackgroundColor(getResources().getColor(R.color.blue_disable));
                         Grupos grp=new Grupos();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,grp).commit();
                     } else {
@@ -123,7 +128,10 @@ public class Menu extends ActionBarActivity {
             ajustes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    rec.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                    busqueda.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                    grupos.setBackgroundColor(getResources().getColor(R.color.blue_disable));
+                    ajustes.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                     Settings ajustes=new Settings();
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_container,ajustes).commit();
                 }
@@ -137,28 +145,40 @@ public class Menu extends ActionBarActivity {
 
         SharedPreferences preferences = getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
 
+        final TextView rec = (TextView) findViewById(R.id.recomendacion);
+        final TextView busqueda = (TextView) findViewById(R.id.busqueda);
+        final TextView grupos = (TextView) findViewById(R.id.grupos);
+        final TextView ajustes = (TextView) findViewById(R.id.ajustes);
         switch (preferences.getInt("mainActivity",-1))
         {
             case 0:
+                rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                 Recomendacion frag=new Recomendacion();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
                 break;
             case 1:
+                busqueda.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                 BusquedaRestaurantes frag1=new BusquedaRestaurantes();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag1).commit();
 
                 break;
             case 2:
+                grupos.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                Grupos frag2=new Grupos();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag2).commit();
 
                 break;
             case 3:
+                ajustes.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                 Settings frag3=new Settings();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag3).commit();
 
+
+
+
                 break;
             default:
+                rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                 Recomendacion aux=new Recomendacion();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,aux).commit();
 
