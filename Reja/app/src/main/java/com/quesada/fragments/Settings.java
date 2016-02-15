@@ -1,5 +1,6 @@
 package com.quesada.fragments;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -38,10 +39,10 @@ public class Settings extends Fragment {
 
         if(savedInstanceState==null) {
 
-            SharedPreferences preferences = this.getActivity().getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
+            final SharedPreferences preferences = this.getActivity().getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
 
             final SharedPreferences.Editor editor = preferences.edit();
-
+            final int activity=preferences.getInt("mainActivity", -1);
 
             ListView activities = (ListView) rootview.findViewById(R.id.pantalla_principal);
 
@@ -52,7 +53,12 @@ public class Settings extends Fragment {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootview.getContext(),
                     android.R.layout.simple_list_item_1, android.R.id.text1, item);
 
+
+
             activities.setAdapter(adapter);
+
+            adapter.notifyDataSetChanged();
+
 
             SeekBar barra = (SeekBar) rootview.findViewById(R.id.distancia_contexto);
 
@@ -110,18 +116,25 @@ public class Settings extends Fragment {
             });
 
 
+
+
             activities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    System.out.println();
 
+                    int aux = preferences.getInt("mainActivity", -1);
+                    if (aux != -1)
+                        adapterView.getChildAt(aux).setBackgroundColor(getResources().getColor(R.color.background_material_light));
 
+                    view.setBackgroundColor(getResources().getColor(R.color.enable_list));
                     editor.putInt("mainActivity", i);
                     editor.commit();
                     guardado();
                 }
             });
+
         }
+
         return rootview;
     }
 

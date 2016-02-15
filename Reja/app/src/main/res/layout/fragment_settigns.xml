@@ -115,7 +115,9 @@
         android:layout_width="fill_parent"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true" />
 
     <View
         android:layout_marginTop="20dp"
