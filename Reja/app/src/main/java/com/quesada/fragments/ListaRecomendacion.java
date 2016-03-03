@@ -20,6 +20,7 @@ import com.quesada.adapters.AdapterRecomendacion;
 import com.quesada.reja.R;
 import com.quesada.services.Gps;
 import com.quesada.objects.Restaurante;
+import com.quesada.utils.Params;
 import com.quesada.utils.utils;
 
 import org.apache.http.NameValuePair;
@@ -42,6 +43,17 @@ public class ListaRecomendacion extends Fragment {
 
     private ListView lista_rec;
     private View rootView;
+    public ListaRecomendacion(){};
+
+    public static ListaRecomendacion newInstance(Bundle args)
+    {
+        ListaRecomendacion f=new ListaRecomendacion();
+        if (args!=null)
+        {
+            f.setArguments(args);
+        }
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +65,10 @@ public class ListaRecomendacion extends Fragment {
 
         boolean context=getArguments().getBoolean("context");
 
+        String request=getArguments().getString("request");
 
-        new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
+
+        request(request);
 
 
 
@@ -83,11 +97,17 @@ public class ListaRecomendacion extends Fragment {
     {
         //Toast.makeText(rootView.getContext(), Double.toString(Gps.latitude)+", "+Double.toString(Gps.longitude)+", "+Integer.toString(100), Toast.LENGTH_LONG).show();
 
+        String request= getArguments().getString("request","");
+        switch (request)
+        {
+            case "recommendations":
+                request("context");
+                break;
+            case "groupRecommendation":
+                request("contextGroupRecommendation");
+                break;
 
-
-        SharedPreferences pref=this.getActivity().getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
-        float distancia=pref.getFloat("distancia",0);
-        new contextRecommedation(this.rootView).execute(Double.toString(Gps.latitude), Double.toString(Gps.longitude), Float.toString(distancia),Login.iduser);
+        }
     }
 
 
@@ -140,13 +160,14 @@ public class ListaRecomendacion extends Fragment {
         }
 
     }
-    private class contextRecommedation extends AsyncTask<String, Void, Void> {
+
+    private class postRequest extends AsyncTask<Params, Void, Void> {
 
 
         JSONObject obj=null;
         ProgressDialog dialog;
 
-        public contextRecommedation(View root){
+        public postRequest(View root){
 
 
             this.dialog=new ProgressDialog(rootView.getContext());
@@ -162,15 +183,15 @@ public class ListaRecomendacion extends Fragment {
          * @return
          */
         @Override
-        protected Void doInBackground(String... params) {
+        protected Void doInBackground(Params... params) {
 
             List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-            postParams.add(new BasicNameValuePair("my_lat",  params[0]));
-            postParams.add(new BasicNameValuePair("my_long",  params[1]));
-            postParams.add(new BasicNameValuePair("maxDist", params[2]));
-            postParams.add(new BasicNameValuePair("idUser", params[3]));
-            this.obj=utils.postRequest("context", postParams);
 
+            for(int i=1;i<params.length;i++)
+            {
+                postParams.add(new BasicNameValuePair(params[i].key,params[i].value));
+            }
+            this.obj=utils.postRequest(params[0].value, postParams);
             //return null;
             return null;
         }
@@ -188,6 +209,62 @@ public class ListaRecomendacion extends Fragment {
         }
 
     }
+
+    private void request(String request)
+    {
+        String nombre;
+        Params idUser;
+        Params req;
+        Params lat;
+        Params lon;
+        Params dist;
+        Params groupId;
+        SharedPreferences pref=this.getActivity().getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
+        float distancia=pref.getFloat("distancia", 0);
+        switch (request)
+        {
+            case "recommendations":
+                new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
+                break;
+            case "context":
+
+
+                req=new Params("request","context");
+                lat=new Params("my_lat",Double.toString(Gps.latitude));
+                lon=new Params("my_long",Double.toString(Gps.longitude));
+                dist=new Params("maxDist",Float.toString(distancia));
+                idUser=new Params("idUser",Login.iduser);
+
+                new postRequest(this.rootView).execute(req, lat, lon, dist, idUser);
+                break;
+            case "groupRecommendation":
+                req=new Params("request","groupRecommendation");
+
+                nombre= getArguments().getString("nombre","");
+                idUser=new Params("adminId",Login.iduser);
+                groupId= new Params("groupId",nombre);
+                new postRequest(this.rootView).execute(req,idUser,groupId);
+
+                break;
+
+            case "contextGroupRecommendation":
+
+                nombre= getArguments().getString("nombre","");
+                req=new Params("request","contextGroup");
+                lat=new Params("my_lat",Double.toString(Gps.latitude));
+                lon=new Params("my_long",Double.toString(Gps.longitude));
+                dist=new Params("maxDist",Float.toString(distancia));
+                idUser=new Params("idUser",Login.iduser);
+                groupId= new Params("groupId",nombre);
+                new postRequest(this.rootView).execute(req, lat, lon, dist, idUser,groupId);
+                break;
+
+            default:
+                new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
+                break;
+        }
+    }
+
     private void result(JSONObject obj)
     {
         ArrayList<Restaurante> recomendacion=new ArrayList<Restaurante>();

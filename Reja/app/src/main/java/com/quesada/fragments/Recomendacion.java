@@ -34,6 +34,17 @@ public class Recomendacion extends Fragment implements ListenerPositionChanged{
     ListenerPositionChanged listener;
 
     ListaRecomendacion lista_recomendacion;
+
+    public Recomendacion(){};
+
+    public static Recomendacion newInstance(Bundle arguments){
+        Recomendacion f = new Recomendacion();
+        if(arguments != null){
+            f.setArguments(arguments);
+        }
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 
@@ -48,13 +59,16 @@ public class Recomendacion extends Fragment implements ListenerPositionChanged{
         final TextView   contexto=(TextView) rootview.findViewById(R.id.boton_activar_contexto);
         final TextView   geolocalizar =(TextView) rootview.findViewById(R.id.boton_geolocalizar);
 
+
+
+
+
         if (savedInstanceState == null) {
 
-            Bundle params = new Bundle();
+            Bundle params = getArguments();
             params.putBoolean("context", this.context);
 
-            this.lista_recomendacion = new ListaRecomendacion();
-            lista_recomendacion.setArguments(params);
+            this.lista_recomendacion = ListaRecomendacion.newInstance(params);
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, lista_recomendacion)

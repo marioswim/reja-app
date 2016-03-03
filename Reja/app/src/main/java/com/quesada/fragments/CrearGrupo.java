@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,22 +59,21 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
 
         final EditText crear_grupo=(EditText) rootView.findViewById(R.id.nombre_crear_grupo);
         final LinearLayout reload= (LinearLayout) rootView.findViewById(R.id.refrescar_miembros);
-
+        Button request = (Button) rootView.findViewById(R.id.requestGroups);
 
         //ImageView aceptar=(ImageView) rootView.findViewById(R.id.boton_aceptar_miembro);
         crear_grupo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-              @Override
-              public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-                  if(actionId == 0)
-                  {
-                    nombreGrupo=(String) crear_grupo.getText().toString();
+                if (actionId == 0) {
+                    nombreGrupo = (String) crear_grupo.getText().toString();
 
                     new AddGroup(rootView).execute(nombreGrupo, Login.iduser);
-                  }
+                }
 
-                  return false;
-              }
+                return false;
+            }
         });
 
 
@@ -82,17 +82,17 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 crear_grupo.setHint("");
-                   reload.setVisibility(View.VISIBLE);
+
             }
         });
 
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nombreGrupo=(String) crear_grupo.getText().toString();
+                nombreGrupo = (String) crear_grupo.getText().toString();
 
-                if(!nombreGrupo.equals(""))
-                    new AddGroup(rootView).execute(nombreGrupo,Login.iduser);
+                if (!nombreGrupo.equals(""))
+                    new AddGroup(rootView).execute(nombreGrupo, Login.iduser);
             }
         });
 
@@ -105,8 +105,19 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
             }
         });
 
-        //TODO crear boton para pedir recomendación a grupos.
-        //TODO mirar libreria recomendación a grupos para añadirla a la api.
+        request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Bundle args=new Bundle();
+                args.putString("request","groupRecommendation");
+                args.putString("nombre",nombreGrupo);
+                Recomendacion frag=Recomendacion.newInstance(args);
+                getFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
+            }
+        });
+
+
         return rootView;
     }
 
@@ -149,7 +160,8 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
                 {
                     case "0":
                         Toast.makeText(rootView.getContext(), message, Toast.LENGTH_LONG).show();
-
+                        ((LinearLayout) rootView.findViewById(R.id.container_aux_crear_grupo)).setVisibility(View.GONE);
+                        ((LinearLayout) rootView.findViewById(R.id.refrescar_miembros)).setVisibility(View.VISIBLE);
                         break;
                     case "1062":
                         Toast.makeText(rootView.getContext(), "Este grupo ya existe", Toast.LENGTH_LONG).show();
@@ -253,6 +265,26 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
                         adapterPendientes.addListener(listen);
                         lista_pendientes.setAdapter(adapterPendientes);
                         adapterPendientes.notifyDataSetChanged();
+                        if(pendientes.size()>0)
+                        {
+                            ((LinearLayout) rootView.findViewById(R.id.layout_pendientes)).setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            ((LinearLayout) rootView.findViewById(R.id.layout_pendientes)).setVisibility(View.GONE);
+
+                        }
+                        if(miembros.size()>0)
+                        {
+                            ((LinearLayout) rootView.findViewById(R.id.layout_mienbros)).setVisibility(View.VISIBLE);
+                            ((RelativeLayout) rootView.findViewById(R.id.getRec)).setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            ((RelativeLayout) rootView.findViewById(R.id.getRec)).setVisibility(View.GONE);
+                            ((LinearLayout) rootView.findViewById(R.id.layout_mienbros)).setVisibility(View.GONE);
+                        }
+                        ((LinearLayout) rootView.findViewById(R.id.container_aux_crear_grupo)).setVisibility(View.GONE);
                         break;
                     case "500":
                         String message=obj.getString("message");

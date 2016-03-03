@@ -70,8 +70,11 @@ public class Menu extends ActionBarActivity {
                         grupos.setBackgroundColor(getResources().getColor(R.color.blue_disable));
                         ajustes.setBackgroundColor(getResources().getColor(R.color.blue_disable));
 
-                        Recomendacion recomendacion=new Recomendacion();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_container,recomendacion).commit();
+                        Bundle args=new Bundle();
+                        args.putString("request", "recommendations");
+                        rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
+                        Recomendacion frag=Recomendacion.newInstance(args);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
 
 
                     } else {
@@ -152,8 +155,10 @@ public class Menu extends ActionBarActivity {
         switch (preferences.getInt("mainActivity",-1))
         {
             case 0:
+                Bundle args=new Bundle();
+                args.putString("request","recommendations");
                 rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
-                Recomendacion frag=new Recomendacion();
+                Recomendacion frag=Recomendacion.newInstance(args);
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
                 break;
             case 1:
