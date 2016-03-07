@@ -128,7 +128,7 @@
     <RatingBar
         android:id="@+id/detalles_puntuar"
         android:layout_width="wrap_content"
-        android:isIndicator="true"
+
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/separador_detalles_2"

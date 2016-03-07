@@ -33,7 +33,7 @@ public class Restaurante {
     private int id;
 
 
-    Restaurante()
+    public Restaurante()
     {
         this.direccion="";
         this.rating=0.0;

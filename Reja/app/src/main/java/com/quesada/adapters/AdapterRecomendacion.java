@@ -77,6 +77,12 @@ public class AdapterRecomendacion extends BaseAdapter {
             direccion = (TextView) convertView.getTag(R.id.direccion);
             rating=(TextView) convertView.getTag(R.id.ratting);
         }
+        if(entradas.get(position).getDireccion()=="")
+        {
+            direccion.setVisibility(View.GONE);
+
+            nombre.setHeight(45);
+        }
 
         nombre.setText(entradas.get(position).getNombre());
         direccion.setText(entradas.get(position).getDireccion());

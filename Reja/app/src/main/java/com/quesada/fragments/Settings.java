@@ -14,6 +14,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class Settings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
-        rootview=container;
+        //rootview=container;
 
         rootview = inflater.inflate(R.layout.fragment_settigns, container, false);
 
@@ -134,7 +135,19 @@ public class Settings extends Fragment {
             });
 
         }
+        LinearLayout ratings= (LinearLayout) rootview.findViewById(R.id.mis_puntuaciones);
 
+        ratings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Bundle args=new Bundle();
+                Ratings rat = Ratings.newInstance(null);
+
+                getFragmentManager().beginTransaction().replace(R.id.main_container,rat).commit();
+
+
+            }
+        });
         return rootview;
     }
 
