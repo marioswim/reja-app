@@ -13,7 +13,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.quesada.fragments.Recomendacion;
+import com.quesada.fragments.ListaRecomendacion;
 import com.quesada.reja.R;
 import com.quesada.services.Gps;
 import com.quesada.objects.Restaurante;
@@ -24,6 +24,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     GoogleMap map;
+    Thread myThread;
+    static boolean run=true;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -32,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -48,8 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         int zoom=9;
         LatLng baseposition;
-        ArrayList<Restaurante> aux= Recomendacion.listaRecomendacion;
-        if(Gps.longitude!=0.0 && Gps.latitude!=0.0)
+        ArrayList<Restaurante> aux= ListaRecomendacion.listaRecomendacion;
+        if(Gps.longitude !=0.0 && Gps.latitude!=0.0)
         {
             zoom=12;
             baseposition = new LatLng(Gps.latitude,Gps.longitude);
@@ -67,5 +70,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             this.map.addMarker(new MarkerOptions().position(recPos).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant_marker)).title(aux.get(i).getNombre()).snippet(aux.get(i).getDireccion()));
         }
         this.map.moveCamera(CameraUpdateFactory.zoomTo(zoom));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        run=true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        run=false;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        run=true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        run=false;
     }
 }

@@ -22,7 +22,7 @@ public class Grupos extends Fragment {
 
         View rootView=inflater.inflate(R.layout.fragment_grupos, container, false);
 
-
+        getActivity().setTitle("Grupos");
         final TextView unirse= (TextView) rootView.findViewById(R.id.boton_unirse_grupo);
         final TextView crear= (TextView) rootView.findViewById(R.id.boton_crear_grupo);
         final CrearGrupo crearGrupo= new CrearGrupo();

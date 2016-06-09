@@ -16,9 +16,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
-import com.quesada.fragments.BusquedaRestaurantes;
-import com.quesada.fragments.Recomendacion;
-import com.quesada.fragments.Settings;
 import com.quesada.reja.R;
 import com.quesada.utils.utils;
 

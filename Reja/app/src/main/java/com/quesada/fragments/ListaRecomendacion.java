@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.quesada.activities.Detalles;
 import com.quesada.activities.Login;
+import com.quesada.activities.MapsActivity;
 import com.quesada.adapters.AdapterRecomendacion;
+import com.quesada.listeners.ListenerPositionChanged;
 import com.quesada.reja.R;
 import com.quesada.services.Gps;
 import com.quesada.objects.Restaurante;
@@ -39,11 +42,15 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ListaRecomendacion extends Fragment {
+public class ListaRecomendacion extends Fragment implements ListenerPositionChanged{
 
     private ListView lista_rec;
     private View rootView;
+    public  static ArrayList<Restaurante> listaRecomendacion;
+    Gps gps;
+    ListenerPositionChanged listener;
     public ListaRecomendacion(){};
+
 
     public static ListaRecomendacion newInstance(Bundle args)
     {
@@ -62,6 +69,10 @@ public class ListaRecomendacion extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_lista_recomendacion, container, false);
 
         lista_rec= (ListView) rootView.findViewById(R.id.recomendacion);
+        listener=this;
+        final TextView lista =(TextView) rootView.findViewById(R.id.boton_lista_recomendacion);
+        final TextView   contexto=(TextView) rootView.findViewById(R.id.boton_activar_contexto);
+        final TextView   geolocalizar =(TextView) rootView.findViewById(R.id.boton_geolocalizar);
 
         boolean context=getArguments().getBoolean("context");
 
@@ -86,30 +97,53 @@ public class ListaRecomendacion extends Fragment {
                 startActivity(intent);
             }
         });
+        lista.setBackgroundColor(getResources().getColor(R.color.blue_enable));
 
+
+        geolocalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: mirar xq no funciona la recomendacion contextualizada geolocalizada
+                ListView recomendacion = (ListView) rootView.findViewById(R.id.recomendacion);
+                AdapterRecomendacion lista = (AdapterRecomendacion) ((ListView) rootView.findViewById(R.id.recomendacion)).getAdapter();
+                listaRecomendacion = lista.getList();
+                Intent intent = new Intent(rootView.getContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        contexto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                gps = new Gps(rootView.getContext(), listener);
+
+                if (!gps.canGetLocation()) {
+
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+
+
+            }
+        });
 
 
 
         return rootView;
     }
 
-    public  void requestContextRecomendation()
-    {
-        //Toast.makeText(rootView.getContext(), Double.toString(Gps.latitude)+", "+Double.toString(Gps.longitude)+", "+Integer.toString(100), Toast.LENGTH_LONG).show();
+    @Override
+    public void onResume() {
+        super.onResume();
+        String request=getArguments().getString("request");
 
-        String request= getArguments().getString("request","");
-        switch (request)
-        {
-            case "recommendations":
-                request("context");
-                break;
-            case "groupRecommendation":
-                request("contextGroupRecommendation");
-                break;
 
-        }
+        request(request);
     }
-
 
     /**
      *
@@ -223,8 +257,12 @@ public class ListaRecomendacion extends Fragment {
         float distancia=pref.getFloat("distancia", 0);
         switch (request)
         {
+            default:
             case "recommendations":
-                new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
+
+                req=new Params("request","recommendation");
+                idUser=new Params("idUser",Login.iduser);
+                new postRequest(rootView).execute(req,idUser);
                 break;
             case "context":
 
@@ -259,12 +297,17 @@ public class ListaRecomendacion extends Fragment {
                 new postRequest(this.rootView).execute(req, lat, lon, dist, idUser,groupId);
                 break;
 
-            default:
-                new HiloEnSegundoPlano(rootView).execute("recommendations/"+Login.iduser);
-                break;
         }
     }
+    @Override
+    public void refresh() {
 
+        request("context");
+        TextView   contexto=(TextView) rootView.findViewById(R.id.boton_activar_contexto);
+        contexto.setTextColor(getResources().getColor(R.color.enable));
+
+
+    }
     private void result(JSONObject obj)
     {
         ArrayList<Restaurante> recomendacion=new ArrayList<Restaurante>();
@@ -290,6 +333,7 @@ public class ListaRecomendacion extends Fragment {
 
         AdapterRecomendacion adapter= new AdapterRecomendacion(getActivity(), recomendacion);
         lista_rec.setAdapter(adapter);
+        listaRecomendacion=adapter.getList();
         adapter.notifyDataSetChanged();
     }
 }

@@ -37,7 +37,7 @@ public class Settings extends Fragment {
         //rootview=container;
 
         rootview = inflater.inflate(R.layout.fragment_settigns, container, false);
-
+        getActivity().setTitle("Ajustes");
         if(savedInstanceState==null) {
 
             final SharedPreferences preferences = this.getActivity().getSharedPreferences("Mis preferencias", Context.MODE_PRIVATE);
@@ -48,7 +48,7 @@ public class Settings extends Fragment {
             ListView activities = (ListView) rootview.findViewById(R.id.pantalla_principal);
 
 
-            String[] item = {"Recomendacion", "Buscar Restaurante", "Recomendación a Grupos", "Opciones"};
+            String[] item = {"Recomendacion", "Buscar Restaurante", "Recomendación a Grupos", "Opciones","Mis puntuaciones"};
 
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootview.getContext(),

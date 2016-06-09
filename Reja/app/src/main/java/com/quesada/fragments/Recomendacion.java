@@ -50,6 +50,7 @@ public class Recomendacion extends Fragment implements ListenerPositionChanged{
 
         rootview = inflater.inflate(R.layout.fragment_recomendacion, container, false);
 
+        getActivity().setTitle("Recomendación");
 
         listener=this;
 
@@ -66,7 +67,7 @@ public class Recomendacion extends Fragment implements ListenerPositionChanged{
         if (savedInstanceState == null) {
 
             Bundle params = getArguments();
-            params.putBoolean("context", this.context);
+                params.putBoolean("context", this.context);
 
             this.lista_recomendacion = ListaRecomendacion.newInstance(params);
 
@@ -117,6 +118,7 @@ public class Recomendacion extends Fragment implements ListenerPositionChanged{
        this.lista_recomendacion.requestContextRecomendation();
         TextView   contexto=(TextView) rootview.findViewById(R.id.boton_activar_contexto);
         contexto.setTextColor(getResources().getColor(R.color.enable));
+
 
     }
 

@@ -1,18 +1,17 @@
 package com.quesada.activities;
 import com.quesada.fragments.BusquedaRestaurantes;
 import com.quesada.fragments.Grupos;
-import com.quesada.fragments.Recomendacion;
+import com.quesada.fragments.ListaRecomendacion;
+import com.quesada.fragments.Ratings;
 import com.quesada.fragments.Settings;
 import com.quesada.reja.R;
 import com.quesada.utils.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -73,7 +72,7 @@ public class Menu extends ActionBarActivity {
                         Bundle args=new Bundle();
                         args.putString("request", "recommendations");
                         rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
-                        Recomendacion frag=Recomendacion.newInstance(args);
+                        ListaRecomendacion frag= ListaRecomendacion.newInstance(args);
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
 
 
@@ -155,10 +154,11 @@ public class Menu extends ActionBarActivity {
         switch (preferences.getInt("mainActivity",-1))
         {
             case 0:
+            default:
                 Bundle args=new Bundle();
                 args.putString("request","recommendations");
                 rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
-                Recomendacion frag=Recomendacion.newInstance(args);
+                ListaRecomendacion frag=ListaRecomendacion.newInstance(args);
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
                 break;
             case 1:
@@ -177,17 +177,17 @@ public class Menu extends ActionBarActivity {
                 ajustes.setBackgroundColor(getResources().getColor(R.color.blue_enable));
                 Settings frag3=new Settings();
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag3).commit();
-
-
-
-
                 break;
-            default:
-                rec.setBackgroundColor(getResources().getColor(R.color.blue_enable));
-                Recomendacion aux=new Recomendacion();
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,aux).commit();
-
+            case 4:
+                ajustes.setBackgroundColor(getResources().getColor(R.color.blue_enable));
+                Ratings frag4= Ratings.newInstance(null);
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,frag4).commit();
                 break;
+
+
+
+
+
         }
     }
 }

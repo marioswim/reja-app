@@ -112,7 +112,7 @@ public class CrearGrupo extends Fragment implements ListenerRefresh {
                 Bundle args=new Bundle();
                 args.putString("request","groupRecommendation");
                 args.putString("nombre",nombreGrupo);
-                Recomendacion frag=Recomendacion.newInstance(args);
+                ListaRecomendacion frag=ListaRecomendacion.newInstance(args);
                 getFragmentManager().beginTransaction().replace(R.id.main_container,frag).commit();
             }
         });

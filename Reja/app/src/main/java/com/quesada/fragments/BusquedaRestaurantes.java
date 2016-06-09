@@ -46,7 +46,7 @@ public class BusquedaRestaurantes extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_busqueda_restaurantes, container, false);
-
+        getActivity().setTitle("Búsqueda");
         list_bus= (ListView) rootView.findViewById(R.id.lista_busqueda);
 
         /*Button realizarBusqueda= (Button) rootView.findViewById(R.id.boton_busqueda);

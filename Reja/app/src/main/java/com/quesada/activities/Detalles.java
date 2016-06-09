@@ -221,12 +221,12 @@ public class Detalles extends ActionBarActivity {
                         case 200:
                             Button puntuar= (Button) findViewById(R.id.detalles_enviar);
                             puntuar.setEnabled(false);
-                            Toast.makeText(context,"Puntuación enviada con exito",Toast.LENGTH_SHORT);
+                            Toast.makeText(context,"Puntuación enviada con exito",Toast.LENGTH_SHORT).show();
 
 
                             break;
                         case 304:
-                            Toast.makeText(context,"Hubo un erro. Intentelo más tarde",Toast.LENGTH_LONG);
+                            Toast.makeText(context,"Hubo un error. Intentelo más tarde",Toast.LENGTH_LONG).show();
                             break;
                     }
 

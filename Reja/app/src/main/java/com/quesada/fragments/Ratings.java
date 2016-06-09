@@ -56,7 +56,7 @@ public class Ratings extends Fragment {
                              Bundle savedInstanceState){
         rootView = inflater.inflate(R.layout.fragment_lista_ratings, container, false);
         lista_ratings= (ListView) rootView.findViewById(R.id.lista_ratings);
-
+        getActivity().setTitle("Mis Puntuaciones    ");
         if(savedInstanceState==null)
         {
             Params request  =   new Params("request","ratings");
