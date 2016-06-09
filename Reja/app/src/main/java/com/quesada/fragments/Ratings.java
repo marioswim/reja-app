@@ -1,6 +1,8 @@
 package com.quesada.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.quesada.activities.Detalles;
 import com.quesada.activities.Login;
@@ -38,7 +41,7 @@ public class Ratings extends Fragment {
     private View rootView;
     public Ratings(){};
 
-
+    int removePos;
 
     public static Ratings newInstance(Bundle args) {
 
@@ -56,7 +59,8 @@ public class Ratings extends Fragment {
                              Bundle savedInstanceState){
         rootView = inflater.inflate(R.layout.fragment_lista_ratings, container, false);
         lista_ratings= (ListView) rootView.findViewById(R.id.lista_ratings);
-        getActivity().setTitle("Mis Puntuaciones    ");
+        getActivity().setTitle("Mis Puntuaciones");
+
         if(savedInstanceState==null)
         {
             Params request  =   new Params("request","ratings");
@@ -76,6 +80,36 @@ public class Ratings extends Fragment {
                     b.putString("origen", "Búsqueda");
                     intent.putExtras(b);
                     startActivity(intent);
+                }
+            });
+            lista_ratings.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                    removePos=i;
+                    final Restaurante  r=(Restaurante) adapterView.getAdapter().getItem(i);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("¿Desea Borrar esta valoración?")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            Params request  =   new Params("request","removeRating");
+                                            Params iduser   =   new Params("idUser", Login.iduser);
+                                            Params iditem   =   new Params("idItem",Integer.toString(r.getId()));
+                                            new postRequest(rootView).execute(request, iduser,iditem);
+                                        }
+                                    })
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+
+                    builder.show();
+                    return false;
                 }
             });
         }
@@ -140,28 +174,59 @@ public class Ratings extends Fragment {
 
             ArrayList<Restaurante> recomendacion=new ArrayList<Restaurante>();
             JSONArray json= null;
-            try {
-                json = obj.getJSONArray("ratings");
+            if(obj.has("ratings")) {
+                try {
+                    json = obj.getJSONArray("ratings");
 
-                for(int i=0;i<json.length();i++)
-                {
+                    for (int i = 0; i < json.length(); i++) {
 
-                    Restaurante aux=new Restaurante();
+                        Restaurante aux = new Restaurante();
 
-                    aux.setNombre(json.getJSONObject(i).getString("name"));
-                    aux.setId(json.getJSONObject(i).getInt("id"));
-                    aux.setRating(json.getJSONObject(i).getDouble("rating"));
-                    recomendacion.add(aux);
+                        aux.setNombre(json.getJSONObject(i).getString("name"));
+                        aux.setId(json.getJSONObject(i).getInt("id"));
+                        aux.setRating(json.getJSONObject(i).getDouble("rating"));
+                        recomendacion.add(aux);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+
+                AdapterRecomendacion adapter = new AdapterRecomendacion(getActivity(), recomendacion);
+                lista_ratings.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
             }
+            else
+            {
+                try {
+                    int code= (Integer) obj.getInt("code");
+                    switch (code)
+                    {
+                        case 200:
+                            Toast.makeText(getActivity(),"Eliminado",Toast.LENGTH_SHORT).show();
+
+                            AdapterRecomendacion ad= (AdapterRecomendacion) lista_ratings.getAdapter();
+                            ArrayList<Restaurante> n=ad.getList();
+                            n.remove(removePos);
 
 
-            AdapterRecomendacion adapter= new AdapterRecomendacion(getActivity(), recomendacion);
-            lista_ratings.setAdapter(adapter);
 
-            adapter.notifyDataSetChanged();
+
+                            ad.notifyDataSetChanged();
+
+
+                            break;
+
+                        case 304:
+                            Toast.makeText(getActivity(),"No se ha podido eliminar",Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
 
     }
